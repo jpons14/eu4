@@ -23,6 +23,12 @@ Route::get('/', function () {
         PHP_EOL . '<br />Solar System Location: ' .  $ship->SolarSystemX . ':' . $ship->SolarSystemY;
 });
 
-Route::get('/find/ship/of/{user}', [ShipsController::class, 'index']);
+Route::get('/ship/find/of/{user}', [ShipsController::class, 'index']);
 Route::get('/ship/move/{ship}/{to_x}:{to_y}', [ShipsController::class, 'move']);
 Route::get('/ship/can/move/{ship}', [ShipsController::class, 'canShipMove']);
+
+
+# Planet routes
+Route::get('/planet/check/seconds/between/last_check_and_now/{planet}', [\App\Http\Controllers\PlanetController::class, 'checkTimeBetweenNowAndLastCheck']);
+Route::get('/planet/resource/to/add/count/{planet}', [\App\Http\Controllers\PlanetController::class, 'howManyResourcesToAdd']);
+Route::get('/planet/add/resources/{planet}', [\App\Http\Controllers\PlanetController::class, 'addResources']);

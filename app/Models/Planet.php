@@ -13,4 +13,14 @@ class Planet extends Model
     {
         return $this->belongsTo(SolarSystem::class, 'SolarSystemID');
     }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'UserID');
+    }
+
+    public function factories()
+    {
+        return $this->hasMany(Factory::class, 'PlanetID');
+    }
 }

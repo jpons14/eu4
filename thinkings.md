@@ -36,3 +36,9 @@ each solar system has a direccion x:y
 1 ship has a solar sytem x:y location (nullable) and a galaxy x:y location (nullable)
 
 if both (4) are null (or all are null or all are filled) means that the ship is on the planet
+
+
+## How will factories work
+1 planet has 8 factories
+(60 per minute * 60 per minute ) = 3600  --- para hacer numeros redondos
+each factory will produce per hour ((60 * 60) * 0.$planetPercentage) * $factoryLevel

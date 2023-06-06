@@ -46,4 +46,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Ship::class, 'UserID');
     }
+
+    public function planets()
+    {
+        return $this->hasMany(Planet::class, 'UserID');
+    }
 }

@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Factory;
 use App\Models\Galaxy;
 use App\Models\SolarSystem;
 use App\Models\Planet;
@@ -9,6 +10,7 @@ use App\Models\ResourcesType;
 use App\Models\PlanetsResource;
 use App\Models\Ship;
 use App\Models\ShipsType;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -55,6 +57,7 @@ class DatabaseSeeder extends Seeder
             'WrapSpeed' => 10,
         ]);
 
+        // add 2 sondas to the first user
         Ship::create([
             'UserID' => 1,
             'ShipTypeID' => $shipType->id,
@@ -71,6 +74,22 @@ class DatabaseSeeder extends Seeder
             'GalaxyX' => rand(0, $this->boardSize),
             'GalaxyY' => rand(0, $this->boardSize),
         ]);
+
+        // assign first planet to first user
+        $firstPlanet = Planet::first();
+        $firstPlanet->UserID = 1;
+        $firstPlanet->titanium_multiplier = rand(5, 99);
+        $firstPlanet->copper_multiplier = rand(5, 99);
+        $firstPlanet->iron_multiplier = rand(5, 99);
+        $firstPlanet->aluminium_multiplier = rand(5, 99);
+        $firstPlanet->silicon_multiplier = rand(5, 99);
+        $firstPlanet->uranium_multiplier = rand(5, 99);
+        $firstPlanet->nitrogen_multiplier = rand(5, 99);
+        $firstPlanet->hydrogen_multiplier = rand(5, 99);
+        $firstPlanet->save();
+
+
+        $this->createFactories();
     }
 
     private function createSolarSystems()
@@ -110,6 +129,14 @@ class DatabaseSeeder extends Seeder
                 'UserID' => null,
                 'x' => $x,
                 'y' => $y,
+                'titanium' => 1000,
+                'copper' => 1000,
+                'iron' => 1000,
+                'aluminium' => 1000,
+                'silicon' => 1000,
+                'uranium' => 1000,
+                'nitrogen' => 1000,
+                'hydrogen' => 1000,
             ]);
         }
     }
@@ -135,6 +162,32 @@ class DatabaseSeeder extends Seeder
                     'PlanetID' => $planet->id,
                     'ResourceTypeID' => $resourcesTypesID,
                     'Percentage' => rand(20, 99)
+                ]);
+            }
+        }
+    }
+
+    public function createFactories()
+    {
+        $planets = User::first()->planets;
+        $factoriesTypes = [
+            'titanium',
+            'copper',
+            'iron',
+            'aluminium',
+            'silicon',
+            'uranium',
+            'nitrogen',
+            'hydrogen',
+        ];
+
+        foreach ($planets as $planet) {
+            foreach ($factoriesTypes as $factoriesType) {
+
+                Factory::create([
+                    'PlanetID' => $planet->id,
+                    'type' => $factoriesType,
+                    'level' => 1
                 ]);
             }
         }
