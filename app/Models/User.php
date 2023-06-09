@@ -55,4 +55,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(SSVisible::class, 'UserID');
     }
+
+    public function moves()
+    {
+        return $this->hasMany(Move::class, 'UserID');
+    }
 }

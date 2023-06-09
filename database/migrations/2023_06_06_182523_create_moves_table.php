@@ -5,7 +5,8 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
-class CreateMovesTable extends Migration
+class
+CreateMovesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -19,8 +20,13 @@ class CreateMovesTable extends Migration
             $table->integer('UserID')->unsigned();
             $table->integer('ShipID')->unsigned()->nullable();
             $table->integer('FleetID')->unsigned()->nullable();
-            $table->timestamp('started_at')->default(DB::raw('CURRENT_TIMESTAMP'));
-            $table->timestamp('will_be_finished_at')->default(DB::raw('CURRENT_TIMESTAMP'));
+            $table->dateTime('started_at')->default(DB::raw('CURRENT_TIMESTAMP'));
+            $table->dateTime('will_be_finished_at')->nullable();
+            $table->integer('has_arrived')->default(0);
+            $table->integer('SolarSystemX')->unsigned()->nullable();
+            $table->integer('SolarSystemY')->unsigned()->nullable();
+            $table->integer('GalaxyX')->unsigned()->nullable();
+            $table->integer('GalaxyY')->unsigned()->nullable();
             $table->timestamps();
         });
     }

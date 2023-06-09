@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Ship extends Model
 {
     use HasFactory;
+    protected $fillable = ['UserID', 'ShipTypeID', 'GalaxyX', 'GalaxyY', 'SolarSystemX', 'SolarSystemY'];
 
     public function type()
     {

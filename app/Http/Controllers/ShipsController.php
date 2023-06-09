@@ -36,22 +36,18 @@ class ShipsController extends Controller
     {
         $minJumps = $this->findMinimumJumps([$ship->GalaxyX, $ship->GalaxyY], [$to_x, $to_y], 10);
         $timeForEachSS = 10; // minutes
-
-        $current_timestamp = Carbon::now()->timestamp; // Produces something like 1552296328
+        $current_timestamp = Carbon::now()->toDateTimeString(); // Produces something like 1552296328
 
 
         $timeOfTravel = ($minJumps * $timeForEachSS) / $ship->type->WrapSpeed;
-
+        $later = Carbon::now()->addMinutes($timeOfTravel)->toDateTimeString();
         Move::create([
             'UserID' => 1, // todo: refactor this
             'ShipID' => $ship->id,
             'started_at' => $current_timestamp,
-            'will_be_finished_at' => Carbon::now()->addMinutes($timeOfTravel)->timestamp
-        ]);
-        $ssID = SolarSystem::where('x', $to_x)->where('y', $to_y)->first()->id;
-        SSVisible::create([
-            'UserID' => 1,
-            'SolarSystemID' => $ssID
+            'will_be_finished_at' => $later,
+            'GalaxyX' => $to_x,
+            'GalaxyY' => $to_y,
         ]);
     }
 
