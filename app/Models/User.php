@@ -51,4 +51,8 @@ class User extends Authenticatable
     {
         return $this->hasMany(Planet::class, 'UserID');
     }
+    public function ssVisible()
+    {
+        return $this->hasMany(SSVisible::class, 'UserID');
+    }
 }

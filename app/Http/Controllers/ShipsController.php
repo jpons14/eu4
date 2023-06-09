@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Move;
 use App\Models\Ship;
+use App\Models\SolarSystem;
+use App\Models\SSVisible;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -30,7 +32,7 @@ class ShipsController extends Controller
         ]);
     }
 
-    public function move(Ship $ship, $to_x, $to_y)
+    public function moveToSS(Ship $ship, $to_x, $to_y)
     {
         $minJumps = $this->findMinimumJumps([$ship->GalaxyX, $ship->GalaxyY], [$to_x, $to_y], 10);
         $timeForEachSS = 10; // minutes
@@ -46,11 +48,21 @@ class ShipsController extends Controller
             'started_at' => $current_timestamp,
             'will_be_finished_at' => Carbon::now()->addMinutes($timeOfTravel)->timestamp
         ]);
+        $ssID = SolarSystem::where('x', $to_x)->where('y', $to_y)->first()->id;
+        SSVisible::create([
+            'UserID' => 1,
+            'SolarSystemID' => $ssID
+        ]);
     }
 
     public function canShipMove(Ship $ship)
     {
         return Carbon::now()->diffInSeconds($ship->moves->first()->will_be_finished_at, false) < 0;
+    }
+
+    public function getSSVisible(User $user)
+    {
+        return $user->ssVisible;
     }
 
     /**

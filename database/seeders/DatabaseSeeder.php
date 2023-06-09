@@ -10,6 +10,7 @@ use App\Models\ResourcesType;
 use App\Models\PlanetsResource;
 use App\Models\Ship;
 use App\Models\ShipsType;
+use App\Models\SSVisible;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 
@@ -63,8 +64,8 @@ class DatabaseSeeder extends Seeder
             'ShipTypeID' => $shipType->id,
             'SolarSystemX' => rand(0, 60),
             'SolarSystemY' => rand(0, 60),
-            'GalaxyX' => rand(0, $this->boardSize),
-            'GalaxyY' => rand(0, $this->boardSize),
+            'GalaxyX' => 1,
+            'GalaxyY' => 1,
         ]);
         Ship::create([
             'UserID' => 1,
@@ -90,6 +91,10 @@ class DatabaseSeeder extends Seeder
 
 
         $this->createFactories();
+        SSVisible::create([
+            'UserID' => 1,
+            'SolarSystemID' => $firstPlanet->solar_system->id
+        ]);
     }
 
     private function createSolarSystems()

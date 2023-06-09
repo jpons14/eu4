@@ -9,6 +9,7 @@ class Move extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['UserID'];
 
 
     public function user()
