@@ -55,3 +55,8 @@ each factory will produce per hour ((60 * 60) * 0.$planetPercentage) * $factoryL
 
 
 Every time that a ship from a user visits a new ss make it visible for the galaxy overview
+
+
+a user when does a move of a ship/fleet will set will_be_finished_at of the calculation of the trip depending on the ship tipe, compoents, etc.
+when the ship arrives to the destination the will_be_finished_at will be set to null and the ship will be on the new location
+the previous sentence will be triggered by an event (that will be triggered in certain pages) or in the future with a cron

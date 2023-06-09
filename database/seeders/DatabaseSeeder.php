@@ -64,8 +64,8 @@ class DatabaseSeeder extends Seeder
             'ShipTypeID' => $shipType->id,
             'SolarSystemX' => rand(0, 60),
             'SolarSystemY' => rand(0, 60),
-            'GalaxyX' => 1,
-            'GalaxyY' => 1,
+            'GalaxyX' => 0,
+            'GalaxyY' => 0,
         ]);
         Ship::create([
             'UserID' => 1,

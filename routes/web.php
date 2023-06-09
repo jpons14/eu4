@@ -34,3 +34,7 @@ Route::get('/planet/show/base/{planet}', [\App\Http\Controllers\PlanetController
 Route::get('/planet/check/seconds/between/last_check_and_now/{planet}', [\App\Http\Controllers\PlanetController::class, 'checkTimeBetweenNowAndLastCheck']);
 Route::get('/planet/resource/to/add/count/{planet}', [\App\Http\Controllers\PlanetController::class, 'howManyResourcesToAdd']);
 Route::get('/planet/add/resources/{planet}', [\App\Http\Controllers\PlanetController::class, 'addResources']);
+
+
+# Solar System routes
+Route::get('/galaxy/get/visible/ss/{user}', [\App\Http\Controllers\SolarSystemController::class, 'getVisibleSS']);
